@@ -36,16 +36,14 @@ jobs:
       - name: Run unit tests
         run: pytest -q
 
-      # Smoke PR: semeia um CSV mínimo para pular o download do Kaggle
+      # PR smoke: semeia CSV mínimo para pular Kaggle
       - name: Seed minimal raw CSV (PR smoke)
         if: github.event_name == 'pull_request'
         run: |
           python - << 'PY'
-          import os, pandas as pd, pathlib
-          raw = pathlib.Path('data/raw')
-          raw.mkdir(parents=True, exist_ok=True)
-          # Colunas reais observadas no dataset (inspector)
-          cols = {
+          import pandas as pd, pathlib
+          raw = pathlib.Path('data/raw'); raw.mkdir(parents=True, exist_ok=True)
+          df = pd.DataFrame({
             "perceived_hearing_meaning": ["Staying connected with the world"],
             "hearing_fomo": ["Sometimes"],
             "hearing_test_barrier": ["Lack of awareness"],
@@ -60,10 +58,10 @@ jobs:
             "paid_app_test_interest": ["Maybe, if it offers good value"],
             "age_group": ["18 - 24"],
             "ear_discomfort_after_use": ["No"],
-          }
-          df = pd.DataFrame(cols)
-          df.to_csv(raw / "Hearing well-being Survey Report.csv", index=False)
-          print("Seeded data/raw/Hearing well-being Survey Report.csv")
+          })
+          raw_csv = raw / "Hearing well-being Survey Report.csv"
+          df.to_csv(raw_csv, index=False)
+          print("Seeded", raw_csv)
           PY
 
       - name: Run pipeline modules (PR smoke)
@@ -90,10 +88,9 @@ jobs:
     name: E2E Prefect (Kaggle)
     runs-on: ubuntu-latest
     needs: [tests-and-smoke]
-    if: github.event_name == 'push' # só em pushes (ex.: merge na main)
+    if: github.event_name == 'push'   # roda só em push (ex.: merge na main)
 
     env:
-      # Se você criar secrets (opcional): Settings → Secrets → Actions
       KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
       KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
 
