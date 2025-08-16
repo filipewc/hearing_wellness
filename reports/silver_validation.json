@@ -1,0 +1,96 @@
+{
+  "success": true,
+  "row_count": 387,
+  "warnings": [
+    "[warn] coluna ausente para expectativa expect_column_to_exist: 'age'",
+    "[warn] coluna ausente para expectativa expect_column_values_to_be_between: 'age'",
+    "[warn] coluna ausente para expectativa expect_column_to_exist: 'gender'",
+    "[warn] coluna ausente para expectativa expect_column_values_to_be_in_set: 'gender'",
+    "[warn] coluna ausente para expectativa expect_column_to_exist: 'hearing_issues'",
+    "[warn] coluna ausente para expectativa expect_column_values_to_be_in_set: 'hearing_issues'"
+  ],
+  "results": [
+    {
+      "success": true,
+      "expectation_config": {
+        "expectation_type": "expect_table_row_count_to_be_between",
+        "kwargs": {
+          "min_value": 11,
+          "result_format": "BASIC"
+        },
+        "meta": {}
+      },
+      "result": {
+        "observed_value": 387
+      },
+      "meta": {},
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "expectation": "expect_column_to_exist",
+      "kwargs": {
+        "column": "age"
+      },
+      "skipped": true,
+      "reason": "missing_column"
+    },
+    {
+      "expectation": "expect_column_values_to_be_between",
+      "kwargs": {
+        "column": "age",
+        "min_value": 0,
+        "max_value": 120,
+        "mostly": 0.99
+      },
+      "skipped": true,
+      "reason": "missing_column"
+    },
+    {
+      "expectation": "expect_column_to_exist",
+      "kwargs": {
+        "column": "gender"
+      },
+      "skipped": true,
+      "reason": "missing_column"
+    },
+    {
+      "expectation": "expect_column_values_to_be_in_set",
+      "kwargs": {
+        "column": "gender",
+        "value_set": [
+          "male",
+          "female",
+          "other"
+        ],
+        "mostly": 0.98
+      },
+      "skipped": true,
+      "reason": "missing_column"
+    },
+    {
+      "expectation": "expect_column_to_exist",
+      "kwargs": {
+        "column": "hearing_issues"
+      },
+      "skipped": true,
+      "reason": "missing_column"
+    },
+    {
+      "expectation": "expect_column_values_to_be_in_set",
+      "kwargs": {
+        "column": "hearing_issues",
+        "value_set": [
+          true,
+          false
+        ],
+        "mostly": 0.98
+      },
+      "skipped": true,
+      "reason": "missing_column"
+    }
+  ]
+}
