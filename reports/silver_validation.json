@@ -2,11 +2,7 @@
   "success": true,
   "row_count": 387,
   "warnings": [
-    "[warn] coluna ausente para expectativa expect_column_to_exist: 'age'",
-    "[warn] coluna ausente para expectativa expect_column_values_to_be_between: 'age'",
-    "[warn] coluna ausente para expectativa expect_column_to_exist: 'gender'",
     "[warn] coluna ausente para expectativa expect_column_values_to_be_in_set: 'gender'",
-    "[warn] coluna ausente para expectativa expect_column_to_exist: 'hearing_issues'",
     "[warn] coluna ausente para expectativa expect_column_values_to_be_in_set: 'hearing_issues'"
   ],
   "results": [
@@ -15,7 +11,7 @@
       "expectation_config": {
         "expectation_type": "expect_table_row_count_to_be_between",
         "kwargs": {
-          "min_value": 11,
+          "min_value": 50,
           "result_format": "BASIC"
         },
         "meta": {}
@@ -31,31 +27,78 @@
       }
     },
     {
-      "expectation": "expect_column_to_exist",
-      "kwargs": {
-        "column": "age"
+      "success": true,
+      "expectation_config": {
+        "expectation_type": "expect_table_column_count_to_be_between",
+        "kwargs": {
+          "min_value": 3,
+          "result_format": "BASIC"
+        },
+        "meta": {}
       },
-      "skipped": true,
-      "reason": "missing_column"
+      "result": {
+        "observed_value": 16
+      },
+      "meta": {},
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
     },
     {
-      "expectation": "expect_column_values_to_be_between",
-      "kwargs": {
-        "column": "age",
-        "min_value": 0,
-        "max_value": 120,
-        "mostly": 0.99
+      "success": true,
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "column": "_ingestion_ts",
+          "result_format": "BASIC"
+        },
+        "meta": {}
       },
-      "skipped": true,
-      "reason": "missing_column"
+      "result": {
+        "element_count": 387,
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "unexpected_percent_total": 0.0,
+        "partial_unexpected_list": []
+      },
+      "meta": {},
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
     },
     {
-      "expectation": "expect_column_to_exist",
-      "kwargs": {
-        "column": "gender"
+      "success": true,
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_be_between",
+        "kwargs": {
+          "column": "age",
+          "min_value": 0,
+          "max_value": 120,
+          "mostly": 0.99,
+          "result_format": "BASIC"
+        },
+        "meta": {}
       },
-      "skipped": true,
-      "reason": "missing_column"
+      "result": {
+        "element_count": 387,
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "unexpected_percent_total": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "partial_unexpected_list": []
+      },
+      "meta": {},
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
     },
     {
       "expectation": "expect_column_values_to_be_in_set",
@@ -67,14 +110,6 @@
           "other"
         ],
         "mostly": 0.98
-      },
-      "skipped": true,
-      "reason": "missing_column"
-    },
-    {
-      "expectation": "expect_column_to_exist",
-      "kwargs": {
-        "column": "hearing_issues"
       },
       "skipped": true,
       "reason": "missing_column"

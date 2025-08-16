@@ -74,6 +74,11 @@
       "name": "_ingestion_ts",
       "dtype": "datetime64[us, UTC]",
       "non_null": 387
+    },
+    {
+      "name": "age",
+      "dtype": "float64",
+      "non_null": 387
     }
   ],
   "row_count": 387
