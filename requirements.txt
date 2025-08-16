@@ -1,4 +1,8 @@
-﻿pandas>=2.2
+﻿pandas>=2.2,<3
 pyarrow>=15
-python-dotenv>=1.0
+great_expectations>=0.18,<1.0
+prefect>=2.16,<3
 kagglehub>=0.3.7
+great_expectations==0.18.*
+prefect>=2.16,<3
+
