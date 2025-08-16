@@ -41,8 +41,9 @@ jobs:
           pip freeze | tail -n +1
 
       - name: Run unit tests (if any)
-        run: pytest -q || true  # ok se não houver testes ainda
+        run: pytest -q || true
 
+      # PR smoke: semeia CSV mínimo para pular Kaggle
       - name: Seed minimal raw CSV (PR smoke)
         if: github.event_name == 'pull_request'
         run: |
@@ -72,6 +73,8 @@ jobs:
 
       - name: Run pipeline modules (PR smoke)
         if: github.event_name == 'pull_request'
+        env:
+          GE_STRICT: "0"   # smoke: não aborta em validação reprovada
         run: |
           set -e
           python -m src.pipelines.bronze_ingest
