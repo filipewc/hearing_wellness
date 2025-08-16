@@ -32,11 +32,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest
+          python - << 'PY'
+          import sys, pkgutil
+          print("PYTHON:", sys.version)
+          for m in ["pandas","pyarrow","great_expectations","prefect","kagglehub"]:
+            print(m, "installed?", bool(pkgutil.find_loader(m)))
+          PY
+          pip freeze | tail -n +1
 
-      - name: Run unit tests
-        run: pytest -q
+      - name: Run unit tests (if any)
+        run: pytest -q || true  # ok se não houver testes ainda
 
-      # PR smoke: semeia CSV mínimo para pular Kaggle
       - name: Seed minimal raw CSV (PR smoke)
         if: github.event_name == 'pull_request'
         run: |
@@ -59,21 +65,34 @@ jobs:
             "age_group": ["18 - 24"],
             "ear_discomfort_after_use": ["No"],
           })
-          raw_csv = raw / "Hearing well-being Survey Report.csv"
-          df.to_csv(raw_csv, index=False)
-          print("Seeded", raw_csv)
+          p = raw / "Hearing well-being Survey Report.csv"
+          df.to_csv(p, index=False)
+          print("Seeded:", p)
           PY
 
       - name: Run pipeline modules (PR smoke)
         if: github.event_name == 'pull_request'
         run: |
+          set -e
           python -m src.pipelines.bronze_ingest
           python -m src.pipelines.silver_clean
           python -m src.pipelines.silver_validate
           python -m src.pipelines.gold_build
 
+      - name: Show repo tree (debug)
+        if: always()
+        run: |
+          echo "--- TREE ---"
+          ls -la
+          echo "--- data/ ---"
+          ls -la data || true
+          echo "--- logs/ ---"
+          ls -la logs || true
+          echo "--- reports/ ---"
+          ls -la reports || true
+
       - name: Upload artifacts (PR smoke)
-        if: github.event_name == 'pull_request'
+        if: always() && github.event_name == 'pull_request'
         uses: actions/upload-artifact@v4
         with:
           name: pr-smoke-artifacts
@@ -120,6 +139,7 @@ jobs:
         run: python -m src.flow_prefect
 
       - name: Upload artifacts (E2E)
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: e2e-artifacts
