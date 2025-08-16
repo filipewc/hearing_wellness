@@ -1,0 +1,85 @@
+{
+  "columns": [
+    {
+      "name": "perceived_hearing_meaning",
+      "dtype": "object",
+      "non_null": 387
+    },
+    {
+      "name": "hearing_fomo",
+      "dtype": "object",
+      "non_null": 387
+    },
+    {
+      "name": "hearing_test_barrier",
+      "dtype": "object",
+      "non_null": 387
+    },
+    {
+      "name": "missed_important_sounds",
+      "dtype": "object",
+      "non_null": 387
+    },
+    {
+      "name": "left_out_due_to_hearing",
+      "dtype": "object",
+      "non_null": 387
+    },
+    {
+      "name": "daily_headphone_use",
+      "dtype": "object",
+      "non_null": 387
+    },
+    {
+      "name": "belief_early_hearing_care",
+      "dtype": "int64",
+      "non_null": 387
+    },
+    {
+      "name": "last_hearing_test_method",
+      "dtype": "object",
+      "non_null": 387
+    },
+    {
+      "name": "interest_in_hearing_app",
+      "dtype": "object",
+      "non_null": 387
+    },
+    {
+      "name": "desired_app_features",
+      "dtype": "object",
+      "non_null": 387
+    },
+    {
+      "name": "awareness_on_hearing_and_willingness_to_invest",
+      "dtype": "object",
+      "non_null": 387
+    },
+    {
+      "name": "paid_app_test_interest",
+      "dtype": "object",
+      "non_null": 387
+    },
+    {
+      "name": "age_group",
+      "dtype": "object",
+      "non_null": 387
+    },
+    {
+      "name": "ear_discomfort_after_use",
+      "dtype": "object",
+      "non_null": 387
+    },
+    {
+      "name": "_ingestion_ts",
+      "dtype": "datetime64[us, UTC]",
+      "non_null": 387
+    },
+    {
+      "name": "age",
+      "dtype": "float64",
+      "non_null": 387
+    }
+  ],
+  "row_count": 387
+}
