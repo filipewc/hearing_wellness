@@ -1,9 +1,47 @@
-﻿.venv/
+﻿# --- Python ---
 __pycache__/
-*.pyc
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+*.manifest
+*.spec
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Byte-compiled / optimized / DLL files
+*.so
+*.dll
+*.dylib
+
+# Jupyter
+.ipynb_checkpoints/
+
+# --- Kaggle / Prefect Data ---
 data/
-!.gitkeep
-.env
 logs/
-data/
 reports/
+
+# Prefect
+.prefect/
+.orion/
+
+# --- IDE / OS files ---
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# --- Testing ---
+.coverage
+htmlcov/
+.pytest_cache/
+
+# --- Packaging / Build ---
+dist/
+build/
