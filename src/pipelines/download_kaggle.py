@@ -1,25 +1,42 @@
+from __future__ import annotations
+
+import logging
+import os
 from pathlib import Path
-import shutil
-import kagglehub
-from src.settings import RAW_DIR, KAGGLE_DATASET
+
+from src.logging_conf import setup_logging
+
+logger = logging.getLogger("pipeline")
 
 def main():
-    print(f"[download] dataset = {KAGGLE_DATASET}")
-    # baixa para o cache local do kagglehub e retorna a pasta
-    src_path = Path(kagglehub.dataset_download(KAGGLE_DATASET))
-    print(f"[download] cache path: {src_path}")
+    setup_logging()
+    try:
+        import kagglehub  # noqa: F401
+    except ModuleNotFoundError as e:
+        logger.error("kagglehub não encontrado. Instale com: pip install kagglehub>=0.3.7")
+        raise
 
-    csvs = list(src_path.rglob("*.csv"))
-    if not csvs:
-        raise FileNotFoundError(f"Nenhum CSV encontrado em {src_path}")
+    dataset = os.environ.get("KAGGLE_DATASET", "adharshinikumar/2025-hearing-wellness-survey")
+    logger.info(f"[download] dataset = {dataset}")
 
-    RAW_DIR.mkdir(parents=True, exist_ok=True)
-    for csv in csvs:
-        dest = RAW_DIR / csv.name
-        shutil.copy2(csv, dest)
-        print(f"[download] copiado: {csv.name} -> {dest}")
+    # Baixa e copia para data/raw
+    import kagglehub
+    cache_path = kagglehub.dataset_download(dataset)
+    logger.info(f"[download] cache path: {cache_path}")
 
-    print("[download] OK")
+    cache = Path(cache_path)
+    raw_dir = Path("data/raw")
+    raw_dir.mkdir(parents=True, exist_ok=True)
+
+    # Dataset tem um único CSV
+    candidates = list(cache.glob("*.csv"))
+    if not candidates:
+        raise FileNotFoundError(f"Nenhum CSV encontrado em {cache}")
+    src_file = candidates[0]
+    dst_file = raw_dir / src_file.name
+    dst_file.write_bytes(src_file.read_bytes())
+    logger.info(f"[download] copiado: {src_file.name} -> {dst_file}")
+    logger.info("[download] OK")
 
 if __name__ == "__main__":
     main()
