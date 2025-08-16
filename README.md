@@ -1,7 +1,9 @@
 ![CI](https://github.com/filipewc/hearing_wellness/actions/workflows/ci.yml/badge.svg)
 
 
-# hearing_wellness# Hearing Wellness Data Pipeline
+# hearing_wellness
+
+# Hearing Wellness Data Pipeline
 
 Este repositório demonstra um **pipeline completo de engenharia de dados**, usando um dataset público do Kaggle sobre **bem-estar auditivo**.
 
